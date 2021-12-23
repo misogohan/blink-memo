@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "esnext",
+      "jsx": "react-jsx",
+      "strict": true,
+      "lib": [ "dom", "esnext" ],
+      "noUncheckedIndexedAccess": true,
+      "moduleResolution": "node",
+      "baseUrl": ".",
+      "paths": {
+        "~/*": [ "src/*" ]
+      },
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "include": [ "types", "src" ]
+  }
+  
+  
