@@ -1,7 +1,9 @@
 import { GlobalStyle } from '~/styles/global';
 
-const App = () => <>
-  <GlobalStyle/>
-</>;
+const App = () => (
+  <>
+    <GlobalStyle />
+  </>
+);
 
 export default App;

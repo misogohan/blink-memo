@@ -1,4 +1,4 @@
-import { ComponentProps, FC } from "react";
+import { ComponentProps, FC } from 'react';
 
 // type Fn = {
 //     f: (x: number) => number,
@@ -41,7 +41,7 @@ import { ComponentProps, FC } from "react";
 // const lid_edge = [-scale * Math.sqrt(5), scale * Math.sqrt(5)].sort() as [number, number];
 
 // const lash_roots = [
-//     0, 
+//     0,
 //     scale * Math.sqrt(5) / 2,  scale * Math.sqrt(5) / (Math.sqrt(5) - 1),
 //    -scale * Math.sqrt(5) / 2, -scale * Math.sqrt(5) / (Math.sqrt(5) - 1)
 // ].sort()
@@ -53,7 +53,7 @@ import { ComponentProps, FC } from "react";
 // export const Logo: FC<ComponentProps<'svg'> & { open: boolean }> = ({ open, ...props }) => {
 //   const lid_ti = tangent_intersection(lid, ...lid_edge);
 //   if (lid_ti == null) return <div>Wrong lid edge</div>;
-  
+
 //   const lid_d = [
 //       'M', ...point_on_lid(lid_edge[0]).add(point_on_lid(lid_edge[0]).subtract(lash_focus).setAbs(lash_length(lid_edge[0]))).tuple(),
 //       'L', ...point_on_lid(lid_edge[0]).tuple(),
@@ -79,12 +79,24 @@ import { ComponentProps, FC } from "react";
 // }
 
 export const Logo: FC<ComponentProps<'svg'> & { open: boolean }> = ({ open, ...props }) => {
-  return <svg xmlns="http://www.w3.org/2000/svg" viewBox="-12-12 24 24" fill="currentColor" stroke="currentColor" { ...props }>
-    <circle cx={0} cy={0} r={3} fill="none" strokeWidth={.25} strokeDasharray={ open ? undefined : .5 }/>
-    <circle cx={0} cy={0} r={3 / 5} stroke="none"/>
-    <g transform={`rotate(${ open ? 180 : 0 })`}>
-      <path d="M-9.484853008740837 1.2417552168275827L-6.708203932499369 0Q0 6 6.708203932499369 0l2.7766490762414673 1.2417552168275832" fill="none" strokeWidth={.5} strokeLinecap="round"/>
-      <path d="M-3.3541019662496847 2.25l-1.1118147091982429 1.7402652877060023M-5.427050983124842 1.0364745084375788l-1.9628390549984904 1.4598996461067253M0 3l0 2M3.3541019662496847 2.25l1.1118147091982429 1.7402652877060023M5.427050983124842 1.0364745084375788l1.9628390549984904 1.4598996461067253" fill="none" strokeWidth={.25} strokeLinecap="round"/>
-    </g>
-  </svg>;
-}
+  return (
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='-12-12 24 24' fill='currentColor' stroke='currentColor' {...props}>
+      <circle cx={0} cy={0} r={3} fill='none' strokeWidth={.25} strokeDasharray={open ? undefined : .5} />
+      <circle cx={0} cy={0} r={3 / 5} stroke='none' />
+      <g transform={`rotate(${open ? 180 : 0})`}>
+        <path
+          d='M-9.484853008740837 1.2417552168275827L-6.708203932499369 0Q0 6 6.708203932499369 0l2.7766490762414673 1.2417552168275832'
+          fill='none'
+          strokeWidth={.5}
+          strokeLinecap='round'
+        />
+        <path
+          d='M-3.3541019662496847 2.25l-1.1118147091982429 1.7402652877060023M-5.427050983124842 1.0364745084375788l-1.9628390549984904 1.4598996461067253M0 3l0 2M3.3541019662496847 2.25l1.1118147091982429 1.7402652877060023M5.427050983124842 1.0364745084375788l1.9628390549984904 1.4598996461067253'
+          fill='none'
+          strokeWidth={.25}
+          strokeLinecap='round'
+        />
+      </g>
+    </svg>
+  );
+};
