@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 
   a {
     color: #66F;
+    cursor: pointer;
   }
 
   * {
