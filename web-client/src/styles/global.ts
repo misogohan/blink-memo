@@ -8,7 +8,11 @@ export const GlobalStyle = createGlobalStyle`
     @media screen and (min-width: 720px) {
       font-size: 24px;
     }
-    font-family: serif;
+    font-family: 'Noto Sans JP', 'Noto Sans', sans-serif;
+  }
+
+  a {
+    color: #66F;
   }
 
   * {
