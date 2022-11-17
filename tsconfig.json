@@ -11,6 +11,9 @@
     },
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "plugins": [
+      { "name": "typescript-styled-plugin", "tags": ["styled", "css", "keyframes", "createGlobalStyle"] }
+    ]
   }
 }

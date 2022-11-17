@@ -1,8 +1,9 @@
 import 'styled-components';
 
-interface ThemeObject {
+export type ThemeObject = {
 }
 
 declare module 'styled-components' {
   interface DefaultTheme extends Readonly<ThemeObject> {}
 }
+

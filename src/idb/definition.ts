@@ -1,14 +1,25 @@
 import { rawNote } from "./raw-note-mock";
-import { importRawNote } from "./transaction-executer";
+import { importRawNote, urge } from "./transaction-executer";
 import { IDBErrorHandler, $ } from "./utils";
 
-const INF = 2 ** 53;
+const INF = Number.MAX_SAFE_INTEGER;
 const DB_ID = 'blink-memo';
 const DB_VERSION = 1;
+
 export const NOTE_STORE_NAME = 'note';
 export const CHAPTER_STORE_NAME = 'chapter';
 export const PAGE_STORE_NAME = 'page';
 export const CURRICULUM_STORE_NAME = 'curriculum';
+export type NOTE_STORE_NAME = typeof NOTE_STORE_NAME;
+export type CHAPTER_STORE_NAME = typeof CHAPTER_STORE_NAME;
+export type PAGE_STORE_NAME = typeof PAGE_STORE_NAME;
+export type CURRICULUM_STORE_NAME = typeof CURRICULUM_STORE_NAME;
+export type STORE_NAME =
+  | NOTE_STORE_NAME
+  | CHAPTER_STORE_NAME
+  | PAGE_STORE_NAME
+  | CURRICULUM_STORE_NAME
+;
 
 const upgradeHandler = (req: IDBOpenDBRequest) =>
   (ev: IDBVersionChangeEvent) => {
@@ -67,7 +78,7 @@ const upgradeHandler = (req: IDBOpenDBRequest) =>
         multiEntry: false,
       });
 
-      if(req.transaction != null) importRawNote(req.transaction)(() => {})(rawNote);
+      if(req.transaction != null) urge(importRawNote(req.transaction, rawNote), () => {});
     }
   };
 

@@ -1,17 +1,14 @@
 export type IDBErrorHandler = (error: DOMException) => void;
-export const $ = <T>(req: IDBRequest<T>, onsuccess: (v: T) => void, onerror?: IDBErrorHandler) => {
-  req.addEventListener('success', () => onsuccess(req.result));
-  if (onerror != null) req.addEventListener('error', () => onerror(req.error!));
-  return req;
-};
-export const $$ = (req: ReturnType<IDBObjectStore['openCursor']>, onfind: (cursor: IDBCursorWithValue) => void, outranged?: (count: number) => void, onerror?: IDBErrorHandler) => {
-  let count = 0;
-  $(req, (v) => {
-    if (v != null) {
-      count++;
-      onfind(v);
-    } else outranged?.(count);
-  }, onerror);
+
+export const $ = <T>(req: IDBRequest<T>, resolve: (v: T) => void, reject: (v: any) => void = () => {}) => {
+  if (req.readyState === "done") resolve(req.result);
+  else {
+    req.addEventListener('success', function on() {
+      req.removeEventListener('success', on);
+      resolve(this.result);
+    });
+    req.addEventListener('error', reject);
+  }
 };
 
 const comparator = <T extends string | number>(a: T, b: T) => {

@@ -1,11 +1,14 @@
-export type NoteId = number & { __ghost_note_id: never };
+export type NoteId = number;
 export type Note = {
   id: NoteId;
   name: string;
   chapters: ChapterId[];
+  options: {
+    textFlow: 'utd' | 'ltr';
+  };
 };
 
-export type ChapterId = number & { __ghost_chapter_id: never };
+export type ChapterId = number;
 export type Chapter = {
   id: ChapterId;
   noteId: NoteId;
@@ -13,7 +16,7 @@ export type Chapter = {
   pages: PageId[];
 };
 
-export type PageId = number & { __ghost_page_id: never };
+export type PageId = number;
 export type Page = {
   id: PageId;
   chapterId: ChapterId;
@@ -21,9 +24,6 @@ export type Page = {
   content: {
     items: Item[];
     detail: string;
-  };
-  options: {
-    textFlow: 'utd' | 'ltr';
   };
 };
 
@@ -40,10 +40,10 @@ export type CurriculumMode = {
   type: 'blink';
   speed: number | undefined;
   moment: number;
-  iterate: number; // if `speed` is defined, iterate a page this times. otherwise, at least this times.
+  iterate: number; // if `speed` is defined, iterate a page this times. otherwise, make each pages blink at least this times.
   repeat: number;
 };
-export type CurriculumId = number & { __ghost_curriculum_id: never };
+export type CurriculumId = number;
 export type Curriculum = {
   id: CurriculumId;
   name: string;
@@ -62,11 +62,11 @@ export type RawNote = {
         items: Item[];
         detail: string;
       };
-      options: {
-        textFlow: 'utd' | 'ltr';
-      };
     }[]
-  }[]
+  }[];
+  options: {
+    textFlow: 'utd' | 'ltr';
+  };
 }
 
 export type OmitId<T extends { id: any }> = Omit<T, 'id'>;

@@ -3,17 +3,17 @@ import { Link } from 'rocon/react';
 import styled from 'styled-components';
 import { Curriculum } from '~/idb/data-structure';
 import { CURRICULUM_STORE_NAME } from '~/idb/definition';
-import { getTransactionExecution, getCurriculums as executerToGetCurriculums } from '~/idb/transaction-executer';
-import { editRoutes } from '~/web-client/routes';
+import { wrap, getCurriculums as executerToGetCurriculums } from '~/idb/transaction-executer';
+import { editRoute } from '~/web-client/routes';
 import { Loadable, sync } from '~/web-client/scripts/promise';
 import { Logo } from '../logo';
 
-const getCurriculums = getTransactionExecution(CURRICULUM_STORE_NAME, 'readonly', executerToGetCurriculums);
+const getCurriculums = wrap(CURRICULUM_STORE_NAME, 'readonly', executerToGetCurriculums);
 
 const TopPage: VFC = styled((props) => {
+  const curriculums = useMemo(() => sync(getCurriculums()), []);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = useCallback(() => setMenuOpen(v => !v), []);
-  const curriculums = useMemo(() => sync(getCurriculums()), []);
 
   useEffect(() => {
     if (menuOpen) {
@@ -55,7 +55,7 @@ const MenuEye = styled<VFC<{ open: boolean; toggle: () => void }>>(({ open, togg
       <nav>
         <h2>Notes</h2>
         <ul>
-          <li><Link route={editRoutes._.note}>Edit</Link></li>
+          <li><Link route={ editRoute.route }>Edit</Link></li>
           <li><a>Share</a></li>
           <li><a>Import</a></li>
         </ul>
