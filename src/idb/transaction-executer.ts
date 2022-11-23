@@ -109,6 +109,10 @@ export const getChapter: ExecutorCreator<Chapter, [id: ChapterId]> = function* (
   if (v == null) throw new Error("invalid chapter id " + id);
   return structuredClone(v);
 };
+export const getChapters: ExecutorCreator<Chapter[], [id: NoteId]> = function* (transaction, id) {
+  const chs: Chapter[] = yield transaction.objectStore(CHAPTER_STORE_NAME).index('note').getAll(id);
+  return chs;
+};
 type PositionSpecifier<T> = 'first' | 'last' | { prev: T };
 export const addChapter: ExecutorCreator<ChapterId, [chapter: Pick<Chapter, 'noteId' | 'name'>, position: PositionSpecifier<ChapterId>]> = function* (transaction, { noteId, name }, position) {
   const data: OmitId<Chapter> = {
@@ -177,10 +181,15 @@ export const moveChapter: ExecutorCreator<void, [id: ChapterId, noteId: NoteId]>
   }
 };
 
-export const getPage: ExecutorCreator<Page | undefined, [id: PageId]> = function* (transaction, id) {
+export const getPage: ExecutorCreator<Page, [id: PageId]> = function* (transaction, id) {
   const v = yield transaction.objectStore(PAGE_STORE_NAME).get(id);
+  if (v == null) throw new Error("invalid page id " + id);
   return structuredClone(v);
 };
+export const getPages: ExecutorCreator<Page[], [id: ChapterId]> = function* (transaction, id) {
+  const pgs: Page[] = yield transaction.objectStore(PAGE_STORE_NAME).index('chapter').getAll(id);
+  return pgs;
+}
 export const addPage: ExecutorCreator<PageId, [page: OmitId<Page>, position: PositionSpecifier<PageId>]> = function* (transaction, { chapterId, headline, content }, position) {
   const data: OmitId<Page> = {
     chapterId,

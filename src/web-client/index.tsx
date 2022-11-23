@@ -1,8 +1,8 @@
-import { render } from 'react-dom';
 import App from './components/App';
+import { createRoot } from "react-dom/client";
 
 const root = document.createElement('div');
 root.id = 'root';
 document.body.appendChild(root);
 
-render(<App />, root);
+createRoot(root).render(<App />);

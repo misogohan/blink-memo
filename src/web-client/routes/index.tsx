@@ -1,4 +1,4 @@
-import { Component, FC } from 'react';
+import {Component, FC, ReactNode} from 'react';
 import Rocon, { isLocationNotFoundError, useRoutes } from 'rocon/react';
 import Edit, {List} from '../components/Page/edit';
 import TopPage from '../components/Page/top';
@@ -11,7 +11,7 @@ export const toplevelRoutes = Rocon.Path()
   .route('edit', route => route.attach(editRoute));
 
 export const ToplevelRoutes: FC = () => useRoutes(toplevelRoutes);
-export class RoconErrorBoundary extends Component<{}, { notFound: boolean }> {
+export class RoconErrorBoundary extends Component<{ children?: ReactNode | undefined }, { notFound: boolean }> {
   state = { notFound: false };
 
   componentDidCatch(error: unknown) {
